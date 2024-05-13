@@ -1,0 +1,1 @@
+Evaluate a simple expression: $(( echo "Hello, world!" ))

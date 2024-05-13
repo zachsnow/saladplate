@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "name": "simplate",
+  "version": "0.0.1",
+  "scripts": {
+    "format": "prettier --ignore-unknown --cache --write .",
+    "lint": "eslint . --ext .ts --cache",
+    "types": "tsc --noEmit",
+    "build": "tsc",
+    "simplate": "ts-node ./bin/simplate.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.11",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "include": [
+    "./**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
+}
