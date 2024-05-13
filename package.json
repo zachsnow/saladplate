@@ -11,7 +11,7 @@
     "test": "./test.sh"
   },
   "bin": {
-    "simplate": "./bin/simplate.js"
+    "simplate": "./bin/simplate.ts"
   },
   "devDependencies": {
     "@types/node": "^20.12.11",
