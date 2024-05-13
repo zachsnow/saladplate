@@ -26,6 +26,5 @@
     "node_modules",
     "build",
     "tests/out"
-  ],
-  "type": "module"
+  ]
 }

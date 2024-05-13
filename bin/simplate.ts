@@ -185,6 +185,7 @@ async function main(): Promise<number | undefined> {
 
   if (filenames.length === 0) {
     console.error(`${BIN}: no input files; use -- for stdin`);
+    help();
     return -1;
   }
 
