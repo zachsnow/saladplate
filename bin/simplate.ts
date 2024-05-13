@@ -131,6 +131,7 @@ const replaceVar = (filename: string, variable: string, options: Options): strin
 };
 
 const replaceFile = async (filename: string, includeFilename: string, options: Options): Promise<string> => {
+  // Resolve the include filename relative to the current file.
   const dir = path.dirname(filename);
   const include = path.join(dir, includeFilename);
   debug && console.debug(`${BIN}: ${filename}: reading ${include} for replacement...`);
@@ -139,8 +140,12 @@ const replaceFile = async (filename: string, includeFilename: string, options: O
 };
 
 const replaceExec = async (filename: string, command: string, options: Options): Promise<string> => {
+  // Execute the command in the working directory containing the file.
+  const cwd = path.dirname(filename);
   debug && console.debug(`${BIN}: ${filename}: executing ${command} for replacement...`);
-  const { stdout } = await util.promisify(exec)(command);
+  const { stdout } = await util.promisify(exec)(command, {
+    cwd,
+  });
   return stdout;
 };
 

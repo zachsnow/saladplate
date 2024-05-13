@@ -1,0 +1,2 @@
+When executing a command, we expect the current working directory to be changed
+to the directory that contains the file we are templating: A simple include file.
