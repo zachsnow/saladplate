@@ -210,8 +210,6 @@ async function main(): Promise<number | undefined> {
       encoding: "utf-8",
     });
   }));
-
-  console.info(`${BIN}: done`);
 }
 
 main()
