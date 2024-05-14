@@ -48,3 +48,7 @@ $ simplate --directory=out --suffix=.html *.template
 
 If instead you pass `--output`, then each file will be templated, with the
 results _concatenated_ into the single given output file.
+
+```bash
+$ simplate --output=index.html *.template
+```
