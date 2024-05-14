@@ -54,7 +54,7 @@ function help() {
   console.info(`Usage: ${BIN} [options] <file>...`);
   console.info(`Options:`);
 
-  const entries = Object.entries(parseArgsConfig.options)
+  const entries = Object.entries(parseArgsConfig.options);
 
   const prefixes: Record<string, string> = {};
   entries.forEach(([name, option]) => {
@@ -63,11 +63,14 @@ function help() {
     prefixes[name] = prefix;
   });
 
-  const len = Math.max(...entries.map(([name, option]) => prefixes[name].length)) + 2;
+  const len =
+    Math.max(...entries.map(([name, option]) => prefixes[name].length)) + 2;
 
   entries.forEach(([name, option]) => {
     const prefix = prefixes[name];
-    console.info(`${prefix}${" ".repeat(len - prefix.length)}${option.description ?? ""}`);
+    console.info(
+      `${prefix}${" ".repeat(len - prefix.length)}${option.description ?? ""}`,
+    );
   });
   console.info("");
 }
@@ -78,14 +81,17 @@ function version() {
 }
 
 type OutputFile = {
-  file: FileHandle | string,
-  filename: string,
+  file: FileHandle | string;
+  filename: string;
 };
 let output: OutputFile | null = null;
 
-async function outputForFilename(filename: string, options: Options): Promise<OutputFile> {
+async function outputForFilename(
+  filename: string,
+  options: Options,
+): Promise<OutputFile> {
   if (output) {
-    return output
+    return output;
   }
 
   if (options.output) {
@@ -119,37 +125,66 @@ const VAR_RE = /\$\{\{([^\}]+)\}\}/g;
 const FILE_RE = /\$\<\<([^\>]+)\>\>/g;
 const EXEC_RE = /\$\(\(([^\)]+)\)\)/g;
 
-async function replaceAsync(input: string, regexp: RegExp, fn: (match: RegExpMatchArray) => string | Promise<string>) {
-  const replacements = await Promise.all(Array.from(input.matchAll(regexp), (match) => fn(match)));
+async function replaceAsync(
+  input: string,
+  regexp: RegExp,
+  fn: (match: RegExpMatchArray) => string | Promise<string>,
+) {
+  const replacements = await Promise.all(
+    Array.from(input.matchAll(regexp), (match) => fn(match)),
+  );
   let i = 0;
   return input.replace(regexp, () => replacements[i++]);
-};
+}
 
-const replaceVar = (filename: string, variable: string, options: Options): string => {
-  debug && console.debug(`${BIN}: ${filename}: evaluating ${variable} for replacement...`);
+const replaceVar = (
+  filename: string,
+  variable: string,
+  options: Options,
+): string => {
+  debug &&
+    console.debug(
+      `${BIN}: ${filename}: evaluating ${variable} for replacement...`,
+    );
   return process.env[variable] ?? "";
 };
 
-const replaceFile = async (filename: string, includeFilename: string, options: Options): Promise<string> => {
+const replaceFile = async (
+  filename: string,
+  includeFilename: string,
+  options: Options,
+): Promise<string> => {
   // Resolve the include filename relative to the current file.
   const dir = path.dirname(filename);
   const include = path.join(dir, includeFilename);
-  debug && console.debug(`${BIN}: ${filename}: reading ${include} for replacement...`);
+  debug &&
+    console.debug(`${BIN}: ${filename}: reading ${include} for replacement...`);
   const content = await fs.promises.readFile(include, { encoding: "utf-8" });
   return template(include, content, options);
 };
 
-const replaceExec = async (filename: string, command: string, options: Options): Promise<string> => {
+const replaceExec = async (
+  filename: string,
+  command: string,
+  options: Options,
+): Promise<string> => {
   // Execute the command in the working directory containing the file.
   const cwd = path.dirname(filename);
-  debug && console.debug(`${BIN}: ${filename}: executing ${command} for replacement...`);
+  debug &&
+    console.debug(
+      `${BIN}: ${filename}: executing ${command} for replacement...`,
+    );
   const { stdout } = await util.promisify(exec)(command, {
     cwd,
   });
   return stdout;
 };
 
-async function template(filename: string, content: string, options: Options): Promise<string> {
+async function template(
+  filename: string,
+  content: string,
+  options: Options,
+): Promise<string> {
   content = await replaceAsync(content, VAR_RE, (match) => {
     return replaceVar(filename, match[1].trim(), options);
   });
@@ -166,7 +201,8 @@ async function template(filename: string, content: string, options: Options): Pr
 type Options = ReturnType<typeof parseArgs>["options"];
 
 const parseArgs = () => {
-  const { values: options, positionals: filenames } = util.parseArgs(parseArgsConfig);
+  const { values: options, positionals: filenames } =
+    util.parseArgs(parseArgsConfig);
   return { options, filenames };
 };
 
@@ -194,22 +230,27 @@ async function main(): Promise<number | undefined> {
     return -1;
   }
 
-  await Promise.all(filenames.map(async (filename) => {
-    if (filename === "--") {
-      filename = "/dev/stdin";
-    }
+  await Promise.all(
+    filenames.map(async (filename) => {
+      if (filename === "--") {
+        filename = "/dev/stdin";
+      }
 
-    debug && console.debug(`${BIN}: reading ${filename}...`);
-    const content = await fs.promises.readFile(filename, { encoding: "utf-8" });
-    debug && console.debug(`${BIN}: templating ${filename}...`);
-    const output = await template(filename, content, options);
+      debug && console.debug(`${BIN}: reading ${filename}...`);
+      const content = await fs.promises.readFile(filename, {
+        encoding: "utf-8",
+      });
+      debug && console.debug(`${BIN}: templating ${filename}...`);
+      const output = await template(filename, content, options);
 
-    const { file: outputFile, filename: outputFilename } = await outputForFilename(filename, options);
-    debug && console.debug(`${BIN}: writing ${outputFilename}...`);
-    await fs.promises.writeFile(outputFile, output, {
-      encoding: "utf-8",
-    });
-  }));
+      const { file: outputFile, filename: outputFilename } =
+        await outputForFilename(filename, options);
+      debug && console.debug(`${BIN}: writing ${outputFilename}...`);
+      await fs.promises.writeFile(outputFile, output, {
+        encoding: "utf-8",
+      });
+    }),
+  );
 }
 
 main()
