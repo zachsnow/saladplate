@@ -10,9 +10,7 @@
     "simplate": "ts-node ./bin/simplate.ts",
     "test": "./test.sh"
   },
-  "bin": {
-    "simplate": "./bin/simplate.ts"
-  },
+  "main": "./build/bin/simplate.js",
   "devDependencies": {
     "@types/node": "^20.12.11",
     "prettier": "^3.2.5",
