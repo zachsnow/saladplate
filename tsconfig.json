@@ -9,10 +9,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "rootDir": ".",
-    "outDir": "build",
+    "outDir": "dist",
     "target": "es6",
     "lib": ["es6"],
-    "types": ["node"]
+    "types": ["node"],
+    "declaration": true
   },
-  "include": ["./bin/*.ts"]
+  "include": ["./**/*.ts"]
 }
