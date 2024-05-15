@@ -1,6 +1,6 @@
 {
   "name": "saladplate",
-  "version": "0.1.1-a",
+  "version": "0.1.2",
   "description": "Very simple templating.",
   "keywords": [
     "template",
