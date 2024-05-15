@@ -8,7 +8,7 @@ rm -rf tests/out/*.out
 
 # Process all tests.
 set +e
-FOO=fooooo pnpm run simplate --debug --directory tests/out --suffix .out tests/*.test
+FOO=fooooo pnpm run saladplate --debug --directory tests/out --suffix .out tests/*.test
 STATUS=$?
 set -e
 

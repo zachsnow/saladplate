@@ -1,8 +1,8 @@
-# Simplate
+# Saladplate
 
-_Very simple templating._
+_Simple templating; it's smaller than usual._
 
-Simplate is a very simple templating tool, with 3 features:
+Saladplate is a very simple templating tool, with 3 features:
 
 1. Replace `${{ VAR }}` with the contents of the environment variable `VAR`.
 2. Replace `$<< filename >>` with the contents of the file `filename`.
@@ -13,19 +13,19 @@ If you need more functionality that that, this is not the templating tool for yo
 ## Installation
 
 ```bash
-$ npm -g install zachsnow/simplate
-$ simplate --version
-simplate: version 0.1.0
+$ npm -g install saladplate
+$ saladplate --version
+saladplate: version 0.1.0
 ```
 
 ## Usage
 
-The easiest way to use Simplate with via the `simplate` command line tool:
+The easiest way to use Saladplate with via the `saladplate` command line tool:
 
 ```bash
-$ simplate --help
+$ saladplate --help
 
-Usage: simplate [options] <file>...
+Usage: saladplate [options] <file>...
 Options:
   --debug          enable debug mode
   -v, --version    show version information
@@ -35,7 +35,7 @@ Options:
   -o, --output     output file; overrides --directory and --suffix
 ```
 
-Simplate generally operates in 2 modes. If you pass `--directory`, then
+Saladplate generally operates in 2 modes. If you pass `--directory`, then
 each file you pass will be templated independently, and the output written
 into the given directory. Use `--suffix` to change the extension of the output
 file -- for instance, if you template the files `some.template` and `another.txt`
@@ -43,34 +43,36 @@ with `--directory=out` and `--suffix=.html` you will end up with a file `out/som
 and `out/another.html`:
 
 ```bash
-$ simplate --directory=out --suffix=.html *.template
+$ saladplate --directory=out --suffix=.html *.template
 ```
 
 If instead you pass `--output`, then each file will be templated, with the
 results _concatenated_ into the single given output file.
 
 ```bash
-$ simplate --output=index.html *.template
+$ saladplate --output=index.html *.template
 ```
 
 You can also use the exported `template` function to template a string:
 
 ```typescript
-import { template } from "simplate";
+import { template } from "saladplate";
 console.info(template("The current PATH is: $PATH"));
 ```
 
 ## Development
 
-When developing locally, you can test your changes using the *script* `simplate`,
+When developing locally, you can test your changes using the *script* `saladplate`,
 which uses `ts-node`. Note the use of `run` below, as well as the use of `--` to
-separate arguments to `npm run` from arguments to `simplate`:
+separate arguments to `npm run` from arguments to `saladplate`:
 
 ```bash
-$ npm run simplate -- --version
+$ npm run saladplate -- --version
 
-> simplate@0.1.0 simplate
-> ts-node ./bin/simplate.ts
+> saladplate@0.1.0 saladplate
+> ts-node ./bin/saladplate.ts
+
+saladplate: version 0.1.0
 ```
 
 Tests are located in `tests/` and consist of input templates `tests/*.test` and

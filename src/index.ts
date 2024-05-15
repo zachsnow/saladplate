@@ -7,7 +7,7 @@ import util from "util";
 /**
  * The name of the tool; prefixes most output.
  */
-export const BIN = "simplate";
+export const BIN = "saladplate";
 
 /**
  * Templating options for `template`.

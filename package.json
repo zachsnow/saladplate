@@ -1,19 +1,19 @@
 {
-  "name": "simplate",
+  "name": "@zachsnow/saladplate",
   "version": "0.1.0",
   "description": "Very simple templating.",
   "keywords": [
     "template",
     "templating"
   ],
-  "main": "./dist/src/simplate.js",
+  "main": "./dist/src/saladplate.js",
   "bin": {
-    "simplate": "dist/bin/simplate.js"
+    "saladplate": "dist/bin/saladplate.js"
   },
   "scripts": {
     "types": "tsc --noEmit",
     "build": "./build.sh",
-    "simplate": "ts-node ./bin/simplate.ts",
+    "saladplate": "ts-node ./bin/saladplate.ts",
     "test": "./test.sh"
   },
   "devDependencies": {
@@ -27,9 +27,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zachsnow/simplate.git"
+    "url": "git+https://github.com/zachsnow/saladplate.git"
   },
   "bugs": {
-    "url": "https://github.com/zachsnow/simplate/issues"
+    "url": "https://github.com/zachsnow/saladplate/issues"
   }
 }
