@@ -1,6 +1,6 @@
 # Simplate
 
-_Simple templating._
+_Very simple templating._
 
 Simplate is a very simple templating tool, with 3 features:
 
@@ -15,7 +15,7 @@ If you need more functionality that that, this is not the templating tool for yo
 ```bash
 $ npm -g install zachsnow/simplate
 $ simplate --version
-simplate: version 0.0.1
+simplate: version 0.1.0
 ```
 
 ## Usage
@@ -69,7 +69,7 @@ separate arguments to `npm run` from arguments to `simplate`:
 ```bash
 $ npm run simplate -- --version
 
-> simplate@0.0.1 simplate
+> simplate@0.1.0 simplate
 > ts-node ./bin/simplate.ts
 ```
 

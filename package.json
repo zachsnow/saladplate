@@ -1,16 +1,20 @@
 {
-  "private": true,
   "name": "simplate",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "description": "Very simple templating.",
+  "keywords": [
+    "template",
+    "templating"
+  ],
+  "main": "./dist/src/simplate.js",
+  "bin": {
+    "simplate": "./dist/src/simplate.js"
+  },
   "scripts": {
     "types": "tsc --noEmit",
     "build": "./build.sh",
     "simplate": "ts-node ./bin/simplate.ts",
     "test": "./test.sh"
-  },
-  "main": "./dist/src/simplate.js",
-  "bin": {
-    "simplate": "./dist/src/simplate.js"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
@@ -19,5 +23,13 @@
   },
   "files": [
     "dist/**/*"
-  ]
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zachsnow/simplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zachsnow/simplate/issues"
+  }
 }
