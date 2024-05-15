@@ -34,14 +34,14 @@ async function replaceAsync(
   return input.replace(regexp, () => replacements[i++]);
 }
 
-const replaceVar = (filename: string, variable: string, options: Options): string => {
+const replaceVar = (variable: string, filename: string, options: Options): string => {
   options.debug && console.debug(`${BIN}: ${filename}: evaluating ${variable} for replacement...`);
   return process.env[variable] ?? "";
 };
 
 const replaceFile = async (
-  filename: string,
   includeFilename: string,
+  filename: string,
   options: Options,
 ): Promise<string> => {
   // Resolve the include filename relative to the current file; if the current file is stdin
@@ -50,12 +50,12 @@ const replaceFile = async (
   const include = path.join(cwd, includeFilename);
   options.debug && console.debug(`${BIN}: ${filename}: reading ${include} for replacement...`);
   const content = await fs.promises.readFile(include, { encoding: "utf-8" });
-  return template(include, content, options);
+  return template(content, include, options);
 };
 
 const replaceExec = async (
-  filename: string,
   command: string,
+  filename: string,
   options: Options,
 ): Promise<string> => {
   // Execute the command in the working directory containing the file we are processing; if
@@ -70,24 +70,25 @@ const replaceExec = async (
 
 /**
  * Replace variables, file includes, and command executions in the given `content`, which
- * is assumed to have been read from the given `filename`. Collapses newlines at the end of
- * the output so that there's just one.
+ * is assumed to have been read from the given `filename` (or stdin). Collapses newlines
+ * at the end of the output so that there's just one.
  */
 export const template = async (
-  filename: string,
   content: string,
+  filename?: string,
   options?: Options,
 ): Promise<string> => {
+  filename ??= "/dev/stdin";
   options ??= {};
 
   content = await replaceAsync(content, VAR_RE, (match) => {
-    return replaceVar(filename, match[1].trim(), options);
+    return replaceVar(match[1].trim(), filename, options);
   });
   content = await replaceAsync(content, FILE_RE, (match) => {
-    return replaceFile(filename, match[1].trim(), options);
+    return replaceFile(match[1].trim(), filename, options);
   });
   content = await replaceAsync(content, EXEC_RE, (match) => {
-    return replaceExec(filename, match[1].trim(), options);
+    return replaceExec(match[1].trim(), filename, options);
   });
   content = content.replace(/\n+$/m, "\n");
   return content;

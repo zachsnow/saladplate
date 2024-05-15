@@ -13,14 +13,14 @@ If you need more functionality that that, this is not the templating tool for yo
 ## Installation
 
 ```bash
-$ npm -g install https://github.com/zachsnow/simplate
+$ npm -g install zachsnow/simplate
 $ simplate --version
 simplate: version 0.0.1
 ```
 
 ## Usage
 
-Currently the only way to use Simplate with via the `simplate` command line tool:
+The easiest way to use Simplate with via the `simplate` command line tool:
 
 ```bash
 $ simplate --help
@@ -51,4 +51,31 @@ results _concatenated_ into the single given output file.
 
 ```bash
 $ simplate --output=index.html *.template
+```
+
+You can also use the exported `template` function to template a string:
+
+```typescript
+import { template } from "simplate";
+console.info(template("The current PATH is: $PATH"));
+```
+
+## Development
+
+When developing locally, you can test your changes using the *script* `simplate`,
+which uses `ts-node`. Note the use of `run` below, as well as the use of `--` to
+separate arguments to `npm run` from arguments to `simplate`:
+
+```bash
+$ npm run simplate -- --version
+
+> simplate@0.0.1 simplate
+> ts-node ./bin/simplate.ts
+```
+
+Tests are located in `tests/` and consist of input templates `tests/*.test` and
+corresponding expected outputs `tests/*.expected`. To run tests:
+
+```bash
+$ npm run test
 ```

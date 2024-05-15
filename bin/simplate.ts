@@ -161,7 +161,7 @@ async function main(): Promise<number | undefined> {
         encoding: "utf-8",
       });
       options.debug && console.debug(`${BIN}: templating ${filename}...`);
-      const output = await template(filename, content, options);
+      const output = await template(content, filename, options);
 
       const { file: outputFile, filename: outputFilename } = await outputForFilename(
         filename,
