@@ -15,7 +15,7 @@ If you need more functionality that that, this is not the templating tool for yo
 ```bash
 $ npm -g install saladplate
 $ saladplate --version
-saladplate: version 0.1.0
+saladplate: version 0.1.2
 ```
 
 ## Usage
@@ -62,17 +62,17 @@ console.info(template("The current PATH is: $PATH"));
 
 ## Development
 
-When developing locally, you can test your changes using the *script* `saladplate`,
+When developing locally, you can test your changes using the _script_ `saladplate`,
 which uses `ts-node`. Note the use of `run` below, as well as the use of `--` to
 separate arguments to `npm run` from arguments to `saladplate`:
 
 ```bash
 $ npm run saladplate -- --version
 
-> saladplate@0.1.0 saladplate
+> saladplate@0.1.2 saladplate
 > ts-node ./bin/saladplate.ts
 
-saladplate: version 0.1.0
+saladplate: version 0.1.2
 ```
 
 Tests are located in `tests/` and consist of input templates `tests/*.test` and
