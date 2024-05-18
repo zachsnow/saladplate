@@ -1,4 +1,4 @@
-#! /usr/bin/env ts-node
+#!/usr/bin/env ts-node
 import fs from "fs";
 import { FileHandle } from "fs/promises";
 import path from "path";
@@ -68,9 +68,13 @@ function help() {
   console.info("");
 }
 
+const SALADPLATE_VERSION = "${{ SALADPLATE_VERSION }}";
 function version() {
-  const version = process.env.npm_package_version;
-  console.info(`${BIN}: version ${version ?? "unknown"}`);
+  let version = SALADPLATE_VERSION;
+  if (version.startsWith("${{")) {
+    version = process.env.npm_package_version ?? "";
+  }
+  console.info(`${BIN}: version ${version || "unknown"}`);
 }
 
 type CommandLineOptions = Options & {
