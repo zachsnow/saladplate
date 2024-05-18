@@ -6,7 +6,7 @@
     "template",
     "templating"
   ],
-  "main": "./dist/src/saladplate.js",
+  "main": "./dist/src/index.js",
   "bin": {
     "saladplate": "dist/bin/saladplate.js"
   },

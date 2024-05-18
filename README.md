@@ -75,6 +75,22 @@ $ npm run saladplate -- --version
 saladplate: version 0.1.2
 ```
 
+### Building and publishing
+
+To build the distributable JS:
+
+```bash
+$ npm run build
+```
+
+This will build to `dist/`. To publish to NPM:
+
+```bash
+$ npm publish
+```
+
+### Testing
+
 Tests are located in `tests/` and consist of input templates `tests/*.test` and
 corresponding expected outputs `tests/*.expected`. To run tests:
 
